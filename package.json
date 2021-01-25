@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HeraldStudio/kf-router.git"
+    "url": "git+https://github.com/HeraldStudio/kf-router-ts.git"
   },
   "keywords": [
     "koa",
@@ -18,9 +18,9 @@
   "author": "Herald Studio",
   "license": "WTFPL",
   "bugs": {
-    "url": "https://github.com/HeraldStudio/kf-router/issues"
+    "url": "https://github.com/HeraldStudio/kf-router-ts/issues"
   },
-  "homepage": "https://github.com/HeraldStudio/kf-router#readme",
+  "homepage": "https://github.com/HeraldStudio/kf-router-ts#readme",
   "dependencies": {
     "chalk": "^2.3.1",
     "glob": "^7.1.2",

@@ -1,29 +1,30 @@
-# Koa 全自动文件路由 kf-router
+# Koa 全自动文件路由 kf-router的ts版本
 
-Made with <3 by `rikumi`, Herald Studio
+Made with <3 by `rlh`, Herald Studio
 
 ## 介绍
 
 kf-router 是一个极简的、在 Koa 上运行的全自动文件路由中间件。只需在主程序中一行代码，即可根据需要的 ReSTful 路由结构，快速开始书写路由处理程序。
+该项目基于原有的功能针对ts提供了支持
 
 ## 用法
 
 ### 安装
 
 ```bash
-npm install -S kf-router
+npm install -S kf-router-ts
 ```
 
 ### 引入
 
 kf-router 只需在 Koa 主程序的 `app` 中引入一个中间件：
 
-```javascript
-//: app.js
+```typescript
+//: app.ts
 
-const koa = require('koa')
+import koa from 'koa'
 const app = new koa()
-const kf = require('kf-router')
+import kf from 'kf-router-router'
 
 app.use(kf())
 app.listen(3000)
@@ -33,12 +34,12 @@ app.listen(3000)
 
 kf-router 将 Koa 的中间件语法进行了简单改造，使得路由处理程序更易书写。
 
-路由处理程序默认情况下只需放在主程序同级的 `routes` 文件夹内，并导出 exports.route 对象。
+路由处理程序默认情况下只需放在主程序同级的 `routes` 文件夹内，并以 export default 的形式导出对象。
 
-```javascript
-//: routes/hello.js
+```typescript
+//: routes/hello.ts
 
-exports.route = {
+export default {
     get() {
         return { hello: 'world!' }
     }
@@ -49,10 +50,10 @@ exports.route = {
 
 若要访问 Koa `ctx` 对象，使用 `this` 即可：
 
-```javascript
-//: routes/hello.js
+```typescript
+//: routes/hello.ts
 
-exports.route = {
+export default {
     async get() {
         return this.headers
     }
@@ -61,16 +62,16 @@ exports.route = {
 
 因为路由中间件将作为中间件栈的最顶层，`next()` 方法不再提供。请始终将 `app.use(kf())` 放在主程序中所有 `use` 语句的最后，因为你无法使用路由以后的任何中间件。
 
-路由处理程序可以放在任意一级子文件夹中，按照需要被请求的路径来命名，例如 `a/b.js` 可以处理 `/a/b` 的请求。路径可以为大小写字母、数字、下划线和中划线，不支持在路径名中使用参数。我们建议用原生的参数表来传递请求参数。
+路由处理程序可以放在任意一级子文件夹中，按照需要被请求的路径来命名，例如 `a/b.ts` 可以处理 `/a/b` 的请求。路径可以为大小写字母、数字、下划线和中划线，不支持在路径名中使用参数。我们建议用原生的参数表来传递请求参数。
 
-如果你既需要当前路径下包含子路由，又需要解析当前路径本身，可以用 index.js 来代替当前路径本身的路由处理程序。例如 `/api/index.js` 文件可以处理 `/api` 的请求，同时当然也可以处理 `/api/index` 的请求。
+如果你既需要当前路径下包含子路由，又需要解析当前路径本身，可以用 index.ts 来代替当前路径本身的路由处理程序。例如 `/api/index.ts` 文件可以处理 `/api` 的请求，同时当然也可以处理 `/api/index` 的请求。
 
 kf-router 会自动支持 koa-bodyparser，将请求参数（合并了 URL 参数和 body 参数）传入路由处理程序：
 
-```javascript
-//: routes/add.js
+```typescript
+//: routes/add.ts
 
-exports.route = {
+export default {
     async post({ a, b }) {
         return Number(a) + Number(b)
     }
